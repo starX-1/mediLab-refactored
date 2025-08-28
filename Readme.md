@@ -9,15 +9,15 @@ It has a constructor with the properties defining the DB connection details.
 
 💡 Note: It is advisable to use .env variables so as not to expose the DB credentials.
 
-The class has 4 important methods which are responsible for:
+ 1. The class has 4 important methods which are responsible for:
 
-Triggering the connection to the DB
+ 2. Triggering the connection to the DB
 
-Creating a cursor to execute SQL queries
+ 3. Creating a cursor to execute SQL queries
 
-Committing any change made to the DB (e.g., insert or update)
+ 4. Committing any change made to the DB (e.g., insert or update)
 
-Closing the connection to the DB
+ 5. Closing the connection to the DB
 
 ```python
 import pymysql
