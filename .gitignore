@@ -1,0 +1,68 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Environment variables
+*.env
+.env.*
+
+# IDE / Editor folders
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Python build / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Logs
+*.log
+logs/
+
+# Flask specific
+instance/
+*.db
+*.sqlite3
+
+# Coverage / Testing
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+htmlcov/
+
+# MySQL dump or sensitive SQL files
+*.sql
+*.bak
+
+# Jupyter notebooks (if any temp ones)
+.ipynb_checkpoints/
+
+# Cache
+.cache/
