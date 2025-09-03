@@ -20,3 +20,15 @@ def labProfile():
 @lab_blueprint.route('/update', methods=['PUT'])
 def updateLab():
     return lab_controller.updateLab(request)
+
+@lab_blueprint.route('/getLabs', methods=['GET'])
+def getLabs(): 
+    return lab_controller.getLabs()
+
+@lab_blueprint.route('/addTest', methods=['POST'])
+def AddLabTest():
+    return lab_controller.AddLabTest(request)
+
+@lab_blueprint.route('/getTests', methods=['POST'])
+def getTests():
+    return lab_controller.getLabTests(request)

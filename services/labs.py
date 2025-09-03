@@ -74,6 +74,55 @@ class LabService:
                 return False
             return True
         except Exception as e:
+            # print(e)
+            return False
+        finally:
+            self.db.close()
+
+    def getLabs(self):
+        query = "select * from laboratories  inner join lab_tests on laboratories.lab_id = lab_tests.lab_id"
+        try:
+            cursor = self.db.get_cursor()
+            cursor.execute(query)
+            if cursor.rowcount == 0:
+                return False
+            else:
+                labs = cursor.fetchall()
+                return labs
+        except Exception as e:
+            print(e)
+            return False
+        finally:
+            self.db.close()
+
+
+
+    def AddLabTest(self, lab_id, test_name, test_description, test_cost, test_discount, availability, more_info):
+        query = "insert into lab_tests(lab_id, test_name, test_description, test_cost, test_discount, availability, more_info) values(%s, %s, %s, %s, %s, %s, %s)"
+        try:
+            cursor = self.db.get_cursor()
+            data = (lab_id, test_name, test_description, test_cost, test_discount, availability, more_info)
+            cursor.execute(query, data)
+            self.db.commit()
+            return True
+        except Exception as e:
+            # print(e)
+            return False
+        finally:
+            self.db.close()
+
+    def viewLabTests(self, lab_id):
+        query = "select * from lab_tests where lab_id = %s"
+        try:
+            cursor = self.db.get_cursor()
+            data = (lab_id)
+            cursor.execute(query, data)
+            if cursor.rowcount == 0:
+                return False
+            else:
+                tests = cursor.fetchall()
+                return tests
+        except Exception as e:
             print(e)
             return False
         finally:
