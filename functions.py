@@ -1,4 +1,5 @@
 import bcrypt
+import uuid
 def hash_password(password):
     bytes = password.encode("utf-8")   # convert the password string into bytes
     salt = bcrypt.gensalt()            # generate a random salt (with cost factor, default 12)
@@ -30,3 +31,6 @@ def checkpasswordStrength (password):
     if not any(char.isdigit() for char in password):
         return False
     return True
+
+def genInvoiceNumber():
+    return str(uuid.uuid4())
