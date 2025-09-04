@@ -11,3 +11,7 @@ def makeBooking():
 @booking_blueprint.route('/myBookings', methods=['POST'])
 def myBookings():
     return booking_controller.myBookings(request)
+
+@booking_blueprint.route('/viewLabBookings', methods=['POST'])
+def viewLabBookings():
+    return booking_controller.viewLabBookings(request)

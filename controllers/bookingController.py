@@ -49,5 +49,16 @@ class BookingController:
             return jsonify({"message": "No bookings found"}), 404
         else:
             return jsonify({"message": result}), 200
+        
+    @jwt_required()
+    def viewLabBookings(self, request):
+        data = request.get_json()
+        lab_id = data["lab_id"]
+        result = self.booking_service.viewLabBookings(lab_id)
+
+        if not result:
+            return jsonify({"message": "No bookings found"}), 404
+        else:
+            return jsonify({"message": result}), 200
 
 
