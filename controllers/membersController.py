@@ -2,7 +2,7 @@ from flask import jsonify, request
 from services.members import MembersService
 import functions
 
-from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity, get_jwt
 
 
 class MembersController():
@@ -42,7 +42,8 @@ class MembersController():
         else:
             if "password" in result:
                 del result["password"]
-            access_token = create_access_token(identity=email, fresh=True)
+            role = "member"
+            access_token = create_access_token(identity=email, additional_claims={"role": role}, fresh=True)
             refresh_token = create_refresh_token(email)
 
             return jsonify({"message": result, "access_token": access_token, "refresh_token": refresh_token}), 200
@@ -51,6 +52,17 @@ class MembersController():
     def memberProfile(self, request):
         data = request.get_json()
         member_id = data["member_id"]
+        claims= get_jwt()
+        role = claims.get("role")
+        
+        # check whether role dictionary contains member or nurse
+        # if role not in ["member", "nurse", "lab"]:
+        #     return jsonify({"message": "Unauthorized"}), 401
+        
+
+        if role != "member":
+            return jsonify({"message": "Unauthorized"}), 401
+
         result = self.member_service.memberProfile(member_id)
 
         if not result:
@@ -72,6 +84,11 @@ class MembersController():
         phone = data["phone"]
         status = data["status"]
         location_id = data["location_id"]
+        claims = get_jwt()
+        role = claims.get("role")
+
+        if role != "member":
+            return jsonify({"message": "Unauthorized"}), 401
 
 
         result = self.member_service.updateProfile(member_id, surname, others, gender, email, dob, phone, status, location_id)

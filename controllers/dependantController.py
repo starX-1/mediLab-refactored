@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from services.dependants import DependantService
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 
 class DependantController:
     def __init__(self):
@@ -13,6 +13,11 @@ class DependantController:
         surname = data["surname"]
         others = data["others"]
         dob = data["dob"]
+        claims = get_jwt()
+        role = claims.get("role")
+
+        if role != "member":
+            return jsonify({"message": "Unauthorized"}), 401
 
         result = self.dependant_service.addDependant(member_id, surname, others, dob)
 
@@ -25,6 +30,11 @@ class DependantController:
     def viewDependants(self, request):
         data = request.get_json()
         member_id = data["member_id"]
+        claims = get_jwt()
+        role = claims.get("role")
+
+        if role != "member":
+            return jsonify({"message": "Unauthorized"}), 401
         result = self.dependant_service.viewDependants(member_id)
         if not result:
             return jsonify({"message": "No dependants found"}), 404
@@ -38,7 +48,11 @@ class DependantController:
         surname = data["surname"]
         others = data["others"]
         dob = data["dob"]
+        claims = get_jwt()
+        role = claims.get("role")
 
+        if role != "member":
+            return jsonify({"message": "Unauthorized"}), 401
         result = self.dependant_service.updateDependant(dependant_id, surname, others, dob)
 
         if result:
