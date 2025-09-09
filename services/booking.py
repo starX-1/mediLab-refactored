@@ -6,6 +6,7 @@ class BookingService:
         self.db = Database()
 
     def makeBooking(self, member_id, booked_for, dependant_id, test_id, appointment_date, appointment_time, where_taken, latitude, longitude, lab_id):
+        
         query = "insert into bookings(member_id, booked_for, dependant_id, test_id, appointment_date, appointment_time, where_taken, latitude, longitude, lab_id, invoice_no) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
         try:
