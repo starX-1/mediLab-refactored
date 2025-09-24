@@ -1,0 +1,9 @@
+flask
+pymysql
+bcrypt
+
+ python3 -c "import secrets; print(secrets.token_hex(32))"
+
+#  import uuid
+
+# lab_id = str(uuid.uuid4())  # generate a unique lab_id

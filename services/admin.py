@@ -1,12 +1,15 @@
 from db import Database
 import functions
 
-class AdminService():
+
+class AdminService:
     def __init__(self):
         self.db = Database()
-    
-    def registerAdmin(self, email, username, status, phone, password):
-        query = "insert into admin(email, username, status, phone, password) values(%s, %s, %s, %s, %s)"
+
+
+    def registerAdmin(self, email, username, status, phone,password):
+
+        query = "insert into admin (email, username, status, phone, password) values (%s, %s, %s, %s, %s)"
 
         try:
             cursor = self.db.get_cursor()
@@ -21,8 +24,11 @@ class AdminService():
         finally:
             self.db.close()
 
+
+
+
     def loginAdmin(self, email, password):
-        query = "select * from admin where email = %s"
+        query = "SELECT * FROM admin WHERE email = %s"
 
         try:
             cursor = self.db.get_cursor()
@@ -33,11 +39,20 @@ class AdminService():
             else:
                 result = cursor.fetchone()
                 if functions.hash_verify(password, result["password"]):
+                    if "password" in result:
+                        del result["password"]
                     return result
                 else:
                     return False
         except Exception as e:
-            print(e)
+            # print(e)
             return False
         finally:
             self.db.close()
+
+
+
+
+   
+       
+ 

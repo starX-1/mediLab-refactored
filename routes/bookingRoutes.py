@@ -5,13 +5,19 @@ booking_blueprint = Blueprint('booking', __name__, url_prefix='/booking')
 booking_controller = BookingController()
 
 @booking_blueprint.route('/create', methods=['POST'])
-def makeBooking():
+def create_booking():
     return booking_controller.makeBooking(request)
 
-@booking_blueprint.route('/myBookings', methods=['POST'])
-def myBookings():
-    return booking_controller.myBookings(request)
+@booking_blueprint.route('/view', methods=['POST'])
+def view_booking():
+    return booking_controller.getMyBookings(request)
 
-@booking_blueprint.route('/viewLabBookings', methods=['POST'])
-def viewLabBookings():
+
+@booking_blueprint.route('/view_lab', methods=['POST'])
+def view_lab_booking():
     return booking_controller.viewLabBookings(request)
+
+
+@booking_blueprint.route('/view_all', methods=['GET'])
+def view_all_booking():
+    return booking_controller.getallBoookings(request)

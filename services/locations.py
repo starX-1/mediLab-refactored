@@ -4,8 +4,9 @@ class LocationService:
     def __init__(self):
         self.db = Database()
 
-    def createLocation(self, location):
-        query = "insert into locations(location) values(%s)"
+    
+    def addLocation(self, location):
+        query = "INSERT INTO locations (location) VALUES (%s)"
         try:
             cursor = self.db.get_cursor()
             data = (location)
@@ -13,13 +14,14 @@ class LocationService:
             self.db.commit()
             return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
         finally:
             self.db.close()
 
+
     def viewLocations(self):
-        query = "select * from locations"
+        query = "SELECT * FROM locations"
         try:
             cursor = self.db.get_cursor()
             cursor.execute(query)
@@ -29,7 +31,22 @@ class LocationService:
                 locations = cursor.fetchall()
                 return locations
         except Exception as e:
-            print(e)
+            # print(e)
+            return False
+        finally:
+            self.db.close()
+
+    # function to update location
+    def updateLocation(self, location_id, location):
+        query = "UPDATE locations SET location = %s WHERE location_id = %s"
+        try:
+            cursor = self.db.get_cursor()
+            data = (location, location_id)
+            cursor.execute(query, data)
+            self.db.commit()
+            return True
+        except Exception as e:
+            # print(e)
             return False
         finally:
             self.db.close()
